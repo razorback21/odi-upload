@@ -11,7 +11,7 @@ Route::get('/', function () {
 Route::post('/upload', UploadController::class)->name('import');
 
 Route::get('/test', function () {
-    $schools = School::with('students')->first();
+    $schools = School::with('students')->find('SCH-001');
 
-    return $schools->students;
+    return $schools->toArray();
 })->name('test');
