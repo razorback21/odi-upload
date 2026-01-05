@@ -17,6 +17,6 @@ class UploadController extends Controller
 
         Excel::queueImport(new SchoolStudentImport, request()->file('file'));
 
-        return back()->with('success', 'Data imported successfully!');
+        return back()->with('success', 'Upload successful. Your file is being processed, this may take a few moments.');
     }
 }
