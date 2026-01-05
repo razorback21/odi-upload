@@ -14,7 +14,8 @@ class UploadController extends Controller
     public function __invoke(Request $request)
     {
         $request->validate(['file' => 'required|mimes:csv']);
-        Excel::import(new SchoolStudentImport, $request->file('file'));
+
+        Excel::queueImport(new SchoolStudentImport, request()->file('file'));
 
         return back()->with('success', 'Data imported successfully!');
     }
