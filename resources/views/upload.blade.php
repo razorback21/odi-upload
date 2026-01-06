@@ -32,7 +32,7 @@
 
           <div>
             <label for="file" class="block text-sm font-medium text-gray-700 mb-2">
-              Choose Excel/CSV File
+              Upload File
             </label>
             <input type="file" name="file" id="file"
               class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
