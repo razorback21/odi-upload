@@ -7,11 +7,10 @@ use App\Models\Student;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
-use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class SchoolStudentImport implements ShouldQueue, ToCollection, WithBatchInserts, WithChunkReading, WithHeadingRow
+class SchoolStudentImport implements ShouldQueue, ToCollection, WithChunkReading, WithHeadingRow
 {
     protected array $schoolBuffer = [];
 
@@ -46,12 +45,7 @@ class SchoolStudentImport implements ShouldQueue, ToCollection, WithBatchInserts
     // Process 1000 rows at a time
     public function chunkSize(): int
     {
-        return 1000;
-    }
-
-    // Insert 1000 rows in one query
-    public function batchSize(): int
-    {
+        // TODO: Move this to the config file.
         return 1000;
     }
 }
