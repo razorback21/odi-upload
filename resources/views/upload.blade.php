@@ -24,7 +24,7 @@
       {{-- Upload Card --}}
       <div class="bg-white shadow-md rounded-lg p-8">
         <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-          Import Students & Schools
+          Import Student Information
         </h2>
 
         <form action="{{ route('import') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
