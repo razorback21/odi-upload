@@ -14,5 +14,5 @@
 10. Make sure queue worker is running - `php artisan queue:listen or php artisan queue:work`
 
 ```
-Inside the project root directory find the sample CSV file: students_import_15000_records.csv use it to test the import functionality
+Inside the project root directory find the sample CSV file: students_import_1500_records.csv use it to test the import functionality
 ```
