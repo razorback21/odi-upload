@@ -15,8 +15,15 @@ class UploadController extends Controller
     {
         $request->validate(['file' => 'required|mimes:csv']);
 
-        Excel::queueImport(new SchoolStudentImport, request()->file('file'));
+        try {
+            Excel::queueImport(new SchoolStudentImport, request()->file('file'));
 
-        return back()->with('success', 'Upload successful. Your file is being processed, this may take a few moments.');
+            return back()->with('success', 'Upload successful. Your file is being processed, this may take a few moments.');
+
+        } catch (\Exception $e) {
+            \Log::error('Upload failed: '.$e->getMessage());
+
+            return back()->with('error', 'Upload failed. Please try again later.');
+        }
     }
 }
