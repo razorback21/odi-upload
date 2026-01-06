@@ -18,7 +18,7 @@ class UploadController extends Controller
         try {
             Excel::queueImport(new SchoolStudentImport, request()->file('file'));
 
-            return back()->with('success', 'Upload successful. Your file is being processed, this may take a few moments.');
+            return back()->with('success', 'Upload successful. Your file is now being imported, this may take a few moments.');
 
         } catch (\Exception $e) {
             \Log::error('Upload failed: '.$e->getMessage());
