@@ -5,7 +5,7 @@
 1. Run `composer install`
 2. Run `npm install`
 3. Rename `.env.example` to `.env`
-4. Set queue driver to database - `QUEUE_CONNECTION=database`
+4. Set queue connection to database - `QUEUE_CONNECTION=database`
 5. Set APP_URL=http://localhost:8000
 6. Generate APP_KEY - `php artisan key:generate`
 7. Create a new SQLite database file inside the database folder name it `database.sqlite`
