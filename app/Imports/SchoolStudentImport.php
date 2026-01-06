@@ -35,6 +35,7 @@ class SchoolStudentImport implements ShouldQueue, ToCollection, WithChunkReading
                     'student_code' => $row['student_code'],
                     'student_id' => $row['student_id'],
                     'first_name' => $row['first_name'],
+                    'last_name' => $row['last_name'],
                     'date_of_birth' => $row['date_of_birth'],
                     'school_code' => $this->schoolBuffer[$schoolCode], // Use school_code, not school_id
                 ]
