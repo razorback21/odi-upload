@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id('student_id');
             $table->string('student_code');
             $table->string('first_name');
+            $table->string('last_name');
             $table->string('date_of_birth');
             $table->string('school_code')->constrained('schools', 'school_code')->index();
             $table->timestamps();
