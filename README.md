@@ -11,7 +11,7 @@
 7. Create a new SQLite database file inside the database folder name it `database.sqlite`
 8. Run migration - `php artisan migrate`
 9. Run the application - `php artisan serve` or `composer run dev`
-10. Make sure queue worker is running - `php artisan queue:listen or php artisan queue:work`
+10. Make sure queue worker is running run: `php artisan queue:listen` or `php artisan queue:work`
 
 ```
 Inside the project root directory find the sample CSV file: students_import_1500_records.csv use it to test the import functionality
