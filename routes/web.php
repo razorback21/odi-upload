@@ -13,10 +13,5 @@ Route::post('/upload', UploadController::class)->name('import');
 Route::get('/test', function () {
     $schools = School::with('students')->get();
 
-    $count = [];
-    foreach ($schools as $chol) {
-        $count[] = $chol->students->count();
-    }
-
-    return array_sum($count);
+    return $schools;
 })->name('test');
