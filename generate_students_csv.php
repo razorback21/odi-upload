@@ -1,4 +1,4 @@
-<?php
+@<?php
 
 /**
  * Generate CSV with 1000+ student records
@@ -11,19 +11,19 @@ $outputFile = "students_import_{$totalRecords}_records.csv";
 
 // Schools data
 $schools = [
-    ['code' => 'SCH-001', 'name' => 'Sorsogon National High School'],
-    ['code' => 'SCH-002', 'name' => 'Bulan Science High School'],
-    ['code' => 'SCH-003', 'name' => 'Gubat Central School'],
-    ['code' => 'SCH-004', 'name' => 'Irosin National High School'],
-    ['code' => 'SCH-005', 'name' => 'Barcelona Central School'],
-    ['code' => 'SCH-006', 'name' => 'Casiguran National High School'],
-    ['code' => 'SCH-007', 'name' => 'Castilla Science High School'],
-    ['code' => 'SCH-008', 'name' => 'Donsol National High School'],
-    ['code' => 'SCH-009', 'name' => 'Magallanes Central School'],
-    ['code' => 'SCH-010', 'name' => 'Matnog National High School'],
+    ['code' => 'SCH-001', 'name' => 'Sorsogon National High School', 'student_school_prefix' => 'SNS', 'student_id_start' => '10001'],
+    ['code' => 'SCH-002', 'name' => 'Bulan Science High School', 'student_school_prefix' => 'BSC', 'student_id_start' => '20001'],
+    ['code' => 'SCH-003', 'name' => 'Gubat Central School', 'student_school_prefix' => 'GCS', 'student_id_start' => '30001'],
+    ['code' => 'SCH-004', 'name' => 'Irosin National High School', 'student_school_prefix' => 'INS', 'student_id_start' => '40001'],
+    ['code' => 'SCH-005', 'name' => 'Barcelona Central School', 'student_school_prefix' => 'BCS', 'student_id_start' => '50001'],
+    ['code' => 'SCH-006', 'name' => 'Casiguran National High School', 'student_school_prefix' => 'CSH', 'student_id_start' => '60001'],
+    ['code' => 'SCH-007', 'name' => 'Castilla Science High School', 'student_school_prefix' => 'CSC', 'student_id_start' => '70001'],
+    ['code' => 'SCH-008', 'name' => 'Donsol National High School', 'student_school_prefix' => 'DNH', 'student_id_start' => '80001'],
+    ['code' => 'SCH-009', 'name' => 'Magallanes Central School', 'student_school_prefix' => 'MCS', 'student_id_start' => '90001'],
+    ['code' => 'SCH-010', 'name' => 'Matnog National High School', 'student_school_prefix' => 'MNH', 'student_id_start' => '100001'],
 ];
 
-// Filipino first names
+// first names
 $firstNames = [
     'Juan', 'Maria', 'Pedro', 'Ana', 'Carlo', 'Liza', 'Jose', 'Rosa',
     'Miguel', 'Carmen', 'Luis', 'Elena', 'Ramon', 'Sofia', 'Diego', 'Isabel',
@@ -35,7 +35,7 @@ $firstNames = [
     'Felipe', 'Fernanda', 'Andres', 'Gabriela', 'Marcos', 'Melissa', 'Victor', 'Daniela',
 ];
 
-// Filipino last names
+// last names
 $lastNames = [
     'Dela Cruz', 'Santos', 'Reyes', 'Lopez', 'Mendoza', 'Ramos', 'Garcia', 'Torres',
     'Gonzales', 'Flores', 'Rivera', 'Cruz', 'Bautista', 'Fernandez', 'Villanueva', 'Castro',
@@ -48,7 +48,7 @@ $lastNames = [
 // Open CSV file for writing
 $file = fopen($outputFile, 'w');
 
-// Write header
+// Write header (no spaces after commas)
 fputcsv($file, [
     'student_id',
     'student_code',
@@ -59,14 +59,17 @@ fputcsv($file, [
     'school_name',
 ]);
 
+// Track counters for each school
+$schoolCounters = [];
+foreach ($schools as $school) {
+    $schoolCounters[$school['code']] = [
+        'student_code_counter' => 1,
+        'student_id_counter' => (int) $school['student_id_start'],
+    ];
+}
+
 // Generate records
 for ($i = 1; $i <= $totalRecords; $i++) {
-    // Student ID starts from 10001
-    $studentId = 10000 + $i;
-
-    // Student code format: STU-001, STU-002, etc. (5 digits for 10500 records)
-    $studentCode = 'STU-'.str_pad($i, 5, '0', STR_PAD_LEFT);
-
     // Random name
     $firstName = $firstNames[array_rand($firstNames)];
     $lastName = $lastNames[array_rand($lastNames)];
@@ -79,6 +82,20 @@ for ($i = 1; $i <= $totalRecords; $i++) {
 
     // Random school
     $school = $schools[array_rand($schools)];
+    $schoolCode = $school['code'];
+
+    // Get school-specific counter
+    $counter = &$schoolCounters[$schoolCode];
+
+    // Generate school-specific student code with proper padding
+    $studentCode = $school['student_school_prefix'].'-'.str_pad($counter['student_code_counter'], 3, '0', STR_PAD_LEFT);
+
+    // Generate school-specific student ID starting from the correct value
+    $studentId = $counter['student_id_counter'];
+
+    // Increment counters for this school
+    $counter['student_code_counter']++;
+    $counter['student_id_counter']++;
 
     // Write row
     fputcsv($file, [
