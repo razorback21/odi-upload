@@ -30,10 +30,12 @@ class SchoolStudentImport implements ShouldQueue, ToCollection, WithChunkReading
             }
 
             // Save student data with correct column names matching the database schema
-            Student::create(
+            Student::updateOrCreate(
                 [
-                    'student_code' => $row['student_code'],
                     'student_id' => $row['student_id'],
+                    'student_code' => $row['student_code'],
+                ],
+                [
                     'first_name' => $row['first_name'],
                     'last_name' => $row['last_name'],
                     'date_of_birth' => $row['date_of_birth'],
@@ -49,4 +51,15 @@ class SchoolStudentImport implements ShouldQueue, ToCollection, WithChunkReading
         // TODO: Move this to the config file.
         return 1000;
     }
+
+    // Handle import failed event
+    // must implement WithEvents interface
+    // public function registerEvents(): array
+    // {
+    //     return [
+    //         ImportFailed::class => function(ImportFailed $event) {
+    //             event(new NotifyImportHasFailed($event));
+    //         },
+    //     ];
+    // }
 }
